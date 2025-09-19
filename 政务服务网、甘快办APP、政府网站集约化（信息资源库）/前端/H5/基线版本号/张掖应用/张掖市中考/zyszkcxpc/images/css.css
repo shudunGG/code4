@@ -1,0 +1,263 @@
+body{
+	background: url(./shuiyin.png);
+}
+.layui-container{
+	background: none !important;
+}
+
+.defaultBtn {
+    display: block;
+    width: 220px;
+    height: 34px;
+    line-height: 34px;
+    text-align: center;
+    margin: 0 auto;
+    border: 0;
+    border-radius: 4px;
+    background-color: #1677ff;
+    color: #fff;
+    cursor: pointer;
+    font-size: 14px;
+    -webkit-transition-property: all;
+    transition-property: all;
+    -webkit-transition-duration: .25s;
+    transition-duration: .25s;
+    transition-time-function: ease-in;
+    -webkit-transition-delay: 0;
+    transition-delay: 0;
+}
+
+.defaultBtn:hover {
+    background-color: #1677ff;
+}
+
+.banner {
+    height: 180px;
+    padding-top: 71px;
+    background: url(banner.png) no-repeat center 0;
+    background-size: 100% 100%;
+}
+
+.banner h1 {
+    width: 1200px;
+    display: block;
+    font-size: 30px;
+    color: #FFFFFF;
+    margin: 0 auto 0;
+}
+
+.banner p {
+    width: 1200px;
+    display: block;
+    font-size: 16px;
+    color: #FFFFFF;
+    margin: 10px auto 0;
+    text-align: left;
+    line-height: 1.8;
+}
+
+.layui-container {
+    background: #fff;
+    box-shadow: 1px 1px 10px #000;
+    padding: 20px 30px;
+    width: 980px;
+    position: relative;
+    margin: 40px auto;
+    box-sizing: border-box;
+}
+
+.xygsSearch-title {
+    height: 80px;
+    line-height: 80px;
+    font-size: 28px;
+    border-bottom: 2px solid #000000;
+    font-weight: 400;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+#returnInquire {
+    float: right !important;
+    margin-top: 20px !important;
+    width: 200px;
+    display: none;
+}
+
+.xygsSearch {
+    width: 570px;
+    float: left;
+    margin: 0;
+    border-right: 1px dashed #ccc;
+    padding: 20px 0 40px;
+    overflow: auto;
+    box-sizing: border-box;
+}
+
+#hint-msg {
+    width: 320px;
+    float: right;
+    padding-left: 30px;
+    display: block;
+}
+
+#hint-msg p {
+    font-size: 16px;
+}
+
+#hint-msg .img-box {
+    display: flex;
+    justify-content: center;
+}
+
+#hint-msg p .appewm{
+    width: 100px;
+}
+
+.xygsSearch-item {
+    height: 50px;
+}
+
+.xygsSearch-item span {
+    width: 85px;
+    height: 50px;
+    line-height: 50px;
+    font-size: 16px;
+    color: #333333;
+    display: inline-block;
+    text-align: left;
+    vertical-align: middle;
+}
+
+.xygsSearch-item input {
+    height: 40px;
+    border: 1px solid #e1e1e1;
+    width: 410px;
+    padding: 0 5px;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.xygsSearch input:focus {
+    border: 1px solid #1677ff;
+}
+
+#VCode {
+    width: 190px;
+}
+
+#checkCode {
+    width: 100px;
+    font-family: Arial;
+    font-style: italic;
+    font-weight: bold;
+    border: 0;
+    letter-spacing: 3px;
+    color: #1677ff;
+    font-size: 20px;
+    margin: 0 15px;
+    cursor: pointer;
+    background-color: initial;
+}
+
+#resetCode {
+    color: #0000EE;
+    font-size: 18px;
+    line-height: 40px;
+    text-decoration: underline;
+    display: inline-block;
+    vertical-align: middle;
+    display: none;
+}
+
+.ipt-01,
+.ipt-02,
+.ipt-03 {
+    background: url(./ipt_bg_01.png) no-repeat 5px center;
+    background-size: 20px;
+    padding-left: 35px !important;
+}
+
+.ipt-02 {
+    background-image: url(./ipt_bg_02.png);
+}
+
+.ipt-03 {
+    background-image: url(./ipt_bg_03.png);
+}
+
+.noneImg {
+    text-align: center;
+}
+
+.noneImg img {
+    width: 200px;
+}
+
+.noneImg p {
+    width: 100%;
+    text-align: center;
+    margin: 20px 0;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.xygsList {
+    display: none;
+}
+
+.xygsList table {
+    width: 100%;
+}
+
+.xygsList table tr:hover {
+    background-color: #f1f1f1;
+}
+
+.xygsList table tr th,
+.xygsList table tr td {
+    line-height: 40px;
+    text-align: center;
+    font-size: 14px;
+}
+
+.xygsList .xygsTitle {
+    height: 50px;
+    line-height: 50px;
+    font-size: 18px;
+    font-weight: bold;
+    margin-top: 25px;
+    border: 1px solid #ddd;
+    border-bottom: 0;
+    padding-left: 30px;
+    background-color: #f1f1f1;
+    text-align: center;
+}
+
+.xygsList table tr td {
+    text-align: center;
+    color: #333;
+    border: 1px solid #ddd;
+}
+
+.xygsSearch input.msg-warn {
+    border-color: red;
+}
+
+input.msg-warn::-webkit-input-placeholder {
+    color: #f00;
+}
+
+input.msg-warn::-moz-placeholder {
+    /* Mozilla Firefox 19+ */
+    color: #f00;
+}
+
+input.msg-warn:-moz-placeholder {
+    /* Mozilla Firefox 4 to 18 */
+    color: #f00;
+}
+
+input.msg-warn:-ms-input-placeholder {
+    /* Internet Explorer 10-11 */
+    color: #f00;
+}

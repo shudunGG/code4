@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <link rel="icon" href="./favicon.ico">
+  <title>张掖市附近药店查询</title>
+  <script src="https://zwfw.gansu.gov.cn/cms_files/default/script/jslib/jquery.js"></script>
+  <script>
+    function getRem(pwidth, prem) {
+      var html = document.getElementsByTagName("html")[0];
+      var oWidth = document.documentElement.clientWidth;
+      if (oWidth <= 768) {
+        html.style.fontSize = oWidth / pwidth * prem + "px";
+      }
+    }
+
+    getRem(750, 100)
+    window.onresize = function () {
+      //     /*750代表设计师给的设计稿的宽度，你的设计稿是多少，就写多少;100代表换算比例，这里写100是为了以后好算,比如，你测量的一个宽度是100px,就可以写为1rem,以及1px=0.01rem等等*/
+      getRem(750, 100)
+
+    };
+  </script>
+</head>
+
+<body>
+  <noscript>
+    <strong>We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled.
+        Please enable it to continue.</strong>
+  </noscript>
+  <script src="/cms_files/filemanager/1053608934/script/202112/184f4ee3644c44beb69b799e60fe9e0e.js"></script>
+  <div id="app"></div>
+  <script src="/cms_files/filemanager/1053608934/script/202112/fe7c6352c3b941c8bcf4889e3cbd760c.js"></script>
+</body>
+
+</html>

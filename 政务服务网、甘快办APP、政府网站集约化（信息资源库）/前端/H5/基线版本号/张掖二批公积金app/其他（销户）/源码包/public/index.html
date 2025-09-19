@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport"
+    content="width=device-width,initial-scale=1.0,minimum-scale=1.0, maximum-scale=1.0, user-scalable=no,telephone=no, viewport-fit=cover" />
+  <meta name="viewport"
+    content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no, viewport-fit=cover" />
+  <link rel="icon" href="<%= BASE_URL %>favicon.ico" />
+  <script src="https://zwfw.gansu.gov.cn/jmopen_files/js/jssdk/index.js"></script>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+  <title></title>
+  <style>
+    p {
+      color: #000;
+    }
+
+    body {
+      background-color: #fff;
+    }
+  </style>
+</head>
+
+<body>
+  <noscript>
+    <strong>We're sorry but productsfe doesn't work properly without JavaScript
+      enabled. Please enable it to continue.</strong>
+  </noscript>
+  <div id="app"></div>
+</body>
+<meta name="viewport" id="viewportMeta">
+
+<script>
+  var initViewport = function (height) {
+    var metaEl = document.querySelector("#viewportMeta");
+    var content = "height=" + height + ",width=device-width,initial-scale=1.0,user-scalable=no";
+    metaEl.setAttribute('name', 'viewport');
+    metaEl.setAttribute('content', content);
+  }
+  var realHeight = window.innerWidth > window.innerHeight ? window.innerWidth : window.innerHeight
+  initViewport(realHeight);
+  $(document).on("click", ".subRes", function () {
+    window.location.reload()
+  })
+
+
+</script>
+
+</html>

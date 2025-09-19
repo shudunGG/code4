@@ -1,0 +1,489 @@
+<template>
+  <div class="page">
+    <div class="container-wrap">
+      <!-- banner背景 -->
+      <div class="top-bg">
+        <div class="top-bg-l">
+          <img src="../assets/images/touxiang.png" alt="" srcset="" />
+        </div>
+        <div class="top-bg-r">
+          <!-- <div>姓名：{{ name(accountInfo.xingming) }}</div>
+          <div>开户日期：{{ accountInfo.khrq.slice(0, 10) }}</div>
+          <div>证件号码：{{ IdNumberDesensitization(accountInfo.zjhm) }}</div> -->
+        </div>
+      </div>
+      <!-- 主内容 -->
+      <div class="concent">
+        <!-- 个人账户余额： -->
+        <!-- <div class="concent_account">
+          <div class="concent_account_t">
+            <div class="account_l">个人账户余额：</div>
+            <div class="account_r">
+              <span class="account_r_t"
+                >{{ show ? accountInfo.grzhyetm : accountInfo.grzhye }}元</span
+              >
+              <span @click="show = !show">
+                <img src="@/assets/icon/by.png" alt="" v-if="show" />
+                <img src="@/assets/icon/zy.png" alt="" v-else />
+              </span>
+            </div>
+          </div>
+          <div class="concent_account_l"></div>
+          <div class="concent_account_b">
+            <div class="account_b_t">缴存单位：</div>
+            <div class="account_b_m">{{ accountInfo.dwmc }}</div>
+          </div>
+        </div> -->
+        <!-- 基本信息（必填） -->
+        <div class="concent_info">
+          <div class="concent_info_t">上传资料（必填）</div>
+          <div class="concent_info_picker">
+            <upLoad
+              :fileItem="fileItem"
+              :fileCount="1"
+              @afterRead="afterRead"
+              @before-delete="beforeDelete"
+            />
+          </div>
+        </div>
+        <button class="queryButton" type="info" @click="verification">
+          完成
+        </button>
+      </div>
+      <!-- 底部 -->
+      <div class="footer">
+        <div class="footer-content">本服务由临夏州住房公积金管理中心提供</div>
+      </div>
+    </div>
+  </div>
+</template>
+<script>
+import { serveAPI } from "../api/serve";
+import { Toast } from "vant";
+import tools, { name, IdNumberDesensitization } from "../tools/tool";
+import upLoad from "../components/upLoad/upLoad.vue";
+export default {
+  components: {
+    upLoad,
+  },
+  name: "index",
+  data() {
+    return {
+      accountInfo: this.$store.state.accountInfo,
+      show: true,
+      userInfo: {}, //用户信息
+      fileItem: [], // 文件列表
+      showBottom: false,
+      publicKey1:
+        "044b51c136955a625d0e7d3c41e69ee9b32f661d0a275770171ffe5d3200b4548f54ae938047e9191a63baffdd64ce3f983bd0246c873a2c63cf2e9db4178c3f3e",
+      privateKey1:
+        "3fce91c669c4769381384edcd8d63515362f222e9025f7f8b52f4f7ef2c38c69",
+      jlbh: this.$route.query.jlbh,
+    };
+  },
+  created() {
+    this.accountInfo = this.$store.state.accountInfo;
+    this.userInfo = this.$store.state.userInfo;
+    console.log(this.accountInfo, "this.accountInfo");
+    console.log(this.userInfo, "this.userInfo");
+    this.queryList();
+  },
+
+  mounted() {},
+  methods: {
+    handler() {},
+    name,
+    IdNumberDesensitization,
+
+    // 上传文件后的操作
+    afterRead(item, i, e) {
+      Toast.loading({
+        duration: 0, // 持续展示 toast
+        message: "加载中...",
+        forbidClick: true,
+      });
+      console.log(item, "item");
+      console.log(i, "i");
+      console.log(e, "e");
+      let param = {
+        params: tools.encryptSM2(
+          JSON.stringify({
+            jlbh: this.jlbh,
+            // jlbh: "1735601572700573698",
+            xxly: "G",
+            basestr: item.dzdaxxVoList[item.dzdaxxVoList.length - 1].url,
+            lbbh: item.lbbh,
+          }),
+          this.publicKey1
+        ),
+        ds: "lx",
+        token: tools.encryptSM2(
+          this.userInfo.tokenNo,
+          "04348740fdab0f8bcdae23a5a0298f91db94e9cff3e8bd9aa387c62e6f721bf011419918654d8eba9dd84b415d3f415d67f3a9e4a7b28a9d7eaa0d36eb7c7ad56c"
+        ),
+        method: "dzdaUpload.action",
+      };
+      serveAPI
+        .queryList("tygjj", "commonGjj", param)
+        .then((res) => {
+          console.log(res, "上传接口");
+          res = JSON.parse(tools.decryptSM2(res.data.data, this.privateKey1));
+          console.log(res, "解密后的上传");
+          if (res.result.code == "00" && res.result.data) {
+            Toast.clear();
+            this.queryList();
+          } else {
+            Toast({
+              message: "上传失败，请重试！",
+            });
+          }
+        })
+        .catch(() => {
+          Toast.clear();
+          Toast({
+            message: "网络异常，请稍后重试！",
+          });
+        });
+    },
+    // 点击删除后的操作
+    beforeDelete(item, i, index) {
+      Toast.loading({
+        duration: 0, // 持续展示 toast
+        message: "加载中...",
+        forbidClick: true,
+      });
+      console.log(item, "item");
+      console.log(i, "i");
+      console.log(index, "index");
+      let param = {
+        params: tools.encryptSM2(
+          JSON.stringify({
+            // jlbh: "1735601572700573698",
+            jlbh: this.jlbh,
+            xxly: "G",
+            dabh: item.dzdaxxVoList[item.dzdaxxVoList.length - 1].dabh,
+            lbbh: item.dzdaxxVoList[item.dzdaxxVoList.length - 1].lbbh,
+          }),
+          this.publicKey1
+        ),
+        ds: "lx",
+        token: tools.encryptSM2(
+          this.userInfo.tokenNo,
+          "04348740fdab0f8bcdae23a5a0298f91db94e9cff3e8bd9aa387c62e6f721bf011419918654d8eba9dd84b415d3f415d67f3a9e4a7b28a9d7eaa0d36eb7c7ad56c"
+        ),
+        method: "dzdaDelete.action",
+      };
+      serveAPI
+        .queryList("tygjj", "commonGjj", param)
+        .then((res) => {
+          console.log(res, "删除接口");
+          res = JSON.parse(tools.decryptSM2(res.data.data, this.privateKey1));
+          console.log(res, "解密后的删除");
+          if (res.result.code == "00" && res.result.msg == "成功") {
+            Toast.clear();
+            this.queryList();
+          } else {
+            Toast({
+              message: "删除失败，请重试！",
+            });
+          }
+        })
+        .catch(() => {
+          Toast.clear();
+          Toast({
+            message: "网络异常，请稍后重试！",
+          });
+        });
+    },
+    queryList() {
+      Toast.loading({
+        duration: 0, // 持续展示 toast
+        message: "加载中...",
+        forbidClick: true,
+      });
+      console.log(this.userInfo, "this.userInfo.token");
+      let param = {
+        params: tools.encryptSM2(
+          JSON.stringify({
+            // jlbh: "1735601572700573698",
+            jlbh: this.jlbh,
+            xxly: "G",
+          }),
+          this.publicKey1
+        ),
+        ds: "lx",
+        token: tools.encryptSM2(
+          this.userInfo.tokenNo,
+          "04348740fdab0f8bcdae23a5a0298f91db94e9cff3e8bd9aa387c62e6f721bf011419918654d8eba9dd84b415d3f415d67f3a9e4a7b28a9d7eaa0d36eb7c7ad56c"
+        ),
+        method: "dzdaList.action",
+      };
+      serveAPI
+        .queryList("tygjj", "commonGjj", param)
+        .then((res) => {
+          console.log(res, "材料列表");
+          res = JSON.parse(tools.decryptSM2(res.data.data, this.privateKey1));
+          console.log(res, "解密后的材料列表");
+          if (res.result.code == "00" && res.result.data.length > 0) {
+            Toast.clear();
+            res.result.data.forEach((item,index) => {
+              if(item.lbmc == "一、基本资料" || item.lbmc == "二、提取资料"){
+                res.result.data.splice(index,1)
+              }
+            });
+            this.fileItem = res.result.data;
+          } else {
+            Toast({
+              message: "暂无材料",
+            });
+          }
+        })
+        .catch(() => {
+          Toast.clear();
+          Toast({
+            message: "网络异常，请稍后重试！",
+          });
+        });
+    },
+    verification() {
+      console.log(this.fileItem, "this.fileItem");
+      let result = this.fileItem.every((item) => {
+        if (item.dzdaxxVoList.length == 0) {
+          return false;
+        } else {
+          return true;
+        }
+      });
+      if (result) {
+        let param = {
+          params: tools.encryptSM2(
+            JSON.stringify({
+              // jlbh: "1735601572700573698",
+              jlbh: this.jlbh,
+              xxly: "G",
+            }),
+            this.publicKey1
+          ),
+          ds: "lx",
+          token: tools.encryptSM2(
+            this.userInfo.tokenNo,
+            "04348740fdab0f8bcdae23a5a0298f91db94e9cff3e8bd9aa387c62e6f721bf011419918654d8eba9dd84b415d3f415d67f3a9e4a7b28a9d7eaa0d36eb7c7ad56c"
+          ),
+          method: "dzdaUpOver.action",
+        };
+        serveAPI
+          .queryList("tygjj", "commonGjj", param)
+          .then((res) => {
+            console.log(res, "提交");
+            res = JSON.parse(tools.decryptSM2(res.data.data, this.privateKey1));
+            console.log(res, "提交");
+            if (res.result.code == "00" && res.result.msg == "提交成功") {
+              Toast.clear();
+              this.$router.push({ path: "/success" });
+            } else {
+              Toast({
+                message: res.result.msg || "提交失败，请稍后重试！",
+              });
+            }
+          })
+          .catch(() => {
+            Toast.clear();
+            Toast({
+              message: "网络异常，请稍后重试！",
+            });
+          });
+      } else {
+        Toast({
+          message: "还有材料未上传，请上传后再提交！",
+        });
+      }
+    },
+  },
+};
+</script>
+
+<style scoped lang="less">
+.page {
+  width: 100%;
+  min-height: 100vh;
+  overflow: hidden;
+  box-sizing: border-box;
+  background: #f8fbff;
+  color: #333;
+  .container-wrap {
+    // 头部背景
+    .top-bg {
+      display: flex;
+      align-items: center;
+      padding: 16px 12px 12px 22px;
+      .top-bg-l {
+        width: 75px;
+        height: 75px;
+        margin-right: 12px;
+      }
+      .top-bg-r {
+        font-weight: 700;
+        font-size: 13px;
+        div {
+          line-height: 28px;
+        }
+      }
+    }
+    // 主内容
+    .concent {
+      padding: 0 12px;
+
+      .concent_account {
+        padding: 12px;
+        border-radius: 4px;
+        background: #fff;
+        box-shadow: 0 0 6px #00000012;
+        .concent_account_t {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          .account_l {
+            font-weight: 700;
+            font-size: 15px;
+            color: #3f87f3;
+          }
+          .account_r {
+            display: flex;
+            .account_r_t {
+              margin-right: 8px;
+            }
+            span {
+              line-height: 15px;
+              img {
+                width: 16px;
+                height: 16px;
+              }
+            }
+          }
+        }
+        .concent_account_l {
+          margin: 12px 0;
+          border-bottom: 2px dashed #eeeeee;
+        }
+        .concent_account_b {
+          line-height: 28px;
+          .account_b_t {
+            font-weight: 700;
+            font-size: 13px;
+            color: #333;
+          }
+          .account_b_m {
+            color: #999;
+          }
+        }
+      }
+      // 基本信息
+      .concent_info {
+        border-radius: 4px;
+        background: #fff;
+        box-shadow: 0 0 6px #00000012;
+        margin-top: 8px;
+        padding: 0 12px;
+        .concent_info_t {
+          padding: 12px 0;
+          font-weight: 700;
+          font-size: 15px;
+          color: #3f87f3;
+          border-bottom: 1px solid #eee;
+        }
+        .concent_info_picker {
+          border-bottom: 1px solid #eee;
+          .picker_t {
+            font-size: 13px;
+            font-weight: 700;
+            padding: 12px 0 0;
+            span {
+              color: #d11313;
+              margin-right: 6px;
+            }
+          }
+          .picker_y:last-child {
+            border: 0;
+          }
+          .picker_y {
+            width: 100%;
+            padding: 12px 0 0;
+            overflow-x: auto;
+            white-space: nowrap;
+            border-bottom: 2px dashed #eeeeee;
+          }
+        }
+      }
+    }
+    .queryButton {
+      height: 45px;
+      border-radius: 4px;
+      background: #3f87f3;
+      color: #fff;
+      font-size: 18px;
+      margin: 30px 0 74px;
+      width: 100%;
+      font-weight: 700;
+    }
+  }
+  // 底部
+  .footer {
+    width: 100%;
+    height: 127.5px;
+    background-image: url(../assets/images/bgc.png);
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: bottom;
+    position: relative;
+    bottom: 0;
+    left: 0;
+    z-index: 0;
+    .footer-content {
+      width: 100%;
+      text-align: center;
+      font-size: 14px;
+      color: #999;
+      position: absolute;
+      bottom: 10px;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+  }
+  /deep/ .van-cell {
+    padding: 8px 15px 12px;
+    font-size: 13px;
+  }
+}
+.uploader {
+  width: 125px;
+  height: 125px;
+  border-radius: 4px;
+  background: #fafafa;
+  border: 0.5px dashed #ddd;
+  margin-bottom: 12px;
+  div {
+    box-sizing: border-box;
+    padding-top: 10px;
+    font-family: "PingFang SC Bold";
+    font-weight: 700;
+    font-size: 13px;
+  }
+}
+.popList {
+  position: relative;
+  height: 114px;
+  border-bottom: 1px solid #eee;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 35px;
+}
+
+/deep/ .van-uploader__preview-image {
+  width: 125px;
+  height: 125px;
+}
+/deep/ .van-uploader__wrapper {
+  flex-wrap: nowrap;
+}
+</style>

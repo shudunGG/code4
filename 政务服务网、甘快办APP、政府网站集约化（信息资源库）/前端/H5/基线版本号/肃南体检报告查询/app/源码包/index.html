@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title></title>
+    <script src="https://zwfw.gansu.gov.cn/jmopen_files/js/jssdk/index.js"></script>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+  <meta name="viewport" id="viewportMeta">
+  <script>
+    var initViewport = function (height) {
+      var metaEl = document.querySelector("#viewportMeta");
+      var content = "height=" + height + ",width=device-width,initial-scale=1.0,user-scalable=no";
+      metaEl.setAttribute('name', 'viewport');
+      metaEl.setAttribute('content', content);
+    }
+    var realHeight = window.innerWidth > window.innerHeight ? window.innerWidth : window.innerHeight
+    initViewport(realHeight);
+    $(document).on("click", ".subRes", function () {
+      window.location.reload()
+    })
+  </script>
+    <!-- <script src="https://unpkg.com/vconsole@latest/dist/vconsole.min.js"></script>
+    <script>
+      // VConsole 默认会挂载到 `window.VConsole` 上
+      var vConsole = new window.VConsole();
+    </script> -->
+</html>

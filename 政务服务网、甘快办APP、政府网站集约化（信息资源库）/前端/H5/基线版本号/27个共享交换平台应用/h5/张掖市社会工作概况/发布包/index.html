@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="./vite.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" id="viewportMeta">
+  <script src="https://zwfw.gansu.gov.cn/jmopen_files/js/jssdk/index.js"></script>
+  <title>张掖市社会工作概况</title>
+  <script type="module" crossorigin src="./js/index-BzTvqj_Z.js"></script>
+  <link rel="stylesheet" crossorigin href="./css/name1-CkA76EBE.css">
+</head>
+
+<body>
+  <div id="app"></div>
+  <!-- <script src="https://cdn.bootcss.com/vConsole/3.3.0/vconsole.min.js"></script>
+  <script>
+    var vConsole = new VConsole()
+  </script> -->
+  <script>
+    var initViewport = function (height) {
+      var metaEl = document.querySelector("#viewportMeta");
+      var content = "height=" + height + ",width=device-width,initial-scale=1.0,user-scalable=no";
+      metaEl.setAttribute('name', 'viewport');
+      metaEl.setAttribute('content', content);
+    }
+    var realHeight = window.innerWidth > window.innerHeight ? window.innerWidth : window.innerHeight
+    initViewport(realHeight);
+    $(document).on("click", ".subRes", function () {
+      window.location.reload()
+    })
+  </script>
+</body>
+
+</html>

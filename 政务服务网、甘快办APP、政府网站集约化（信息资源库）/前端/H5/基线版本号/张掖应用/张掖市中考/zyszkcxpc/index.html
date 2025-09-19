@@ -1,0 +1,161 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>张掖市2023年中考成绩查询平台</title>
+    <script src="./images/jquery-1.8.3.min.js"></script>
+    <script src="./layui/layui.js"></script>
+    <link rel="stylesheet" href="./layui/css/layui.css">
+    <!-- crypto-js -->
+    <script type="text/javascript" src="./bower_components/crypto-js/crypto-js.js"></script>
+</head>
+
+<body>
+    <link rel="stylesheet" href="./images/css.css">
+    <script src="./images/main.js"></script>
+    <!--通用头部-->
+    <script
+        src="https://zwfw.gansu.gov.cn/cms_files/filemanager/1053608934/script/20226/c20cce01f45a4bcba0a47c4867eb15cf.js"
+        type="text/javascript" charset="utf-8"></script>
+    <script src="js/crypto-js.js"></script>
+    <script src="js/sm2.js"></script>
+    <script src="js/common.js"></script>
+    <!-- banner -->
+    <div class="bannerbg">
+        <div class="banner ma">
+            <h1>张掖市2023年中考成绩查询平台</h1>
+            <!-- <p>您可凭应用名称来快速查询所需应用</p> -->
+        </div>
+    </div>
+    <!-- 内容展示区 -->
+    <div class="layui-container"
+        style="background: #fff;box-shadow: 1px 1px 10px #000;padding: 20px 30px;width: 980px;position: relative;margin: 40px auto;box-sizing: border-box;">
+        <h1 class="xygsSearch-title">
+            张掖市2023年中考成绩查询平台
+            <button class="defaultBtn" id="returnInquire">返回查询</button>
+        </h1>
+        <div class="xygsSearch-box">
+            <!-- 查询表单 -->
+            <div class="xygsSearch">
+                <div class="xygsSearch-item">
+                    <span>姓名:</span>
+                    <input placeholder="请输入考生姓名" type="text" id="v2" class="ipt-02" maxlength="50">
+                </div>
+                <div class="xygsSearch-item">
+                    <span>准考证号:</span>
+                    <input placeholder="请输入准考证号" type="text" id="v1" class="ipt-02" maxlength="50">
+                </div>
+                <div class="xygsSearch-item">
+                    <span>身份证号:</span>
+                    <input placeholder="请输入身份证号" type="text" id="v3" class="ipt-02" maxlength="50">
+                </div>
+                <div class="xygsSearch-item">
+                    <span>验证码:</span>
+                    <input placeholder="请输入验证码" type="text" id="VCode" class="ipt-03" maxlength="5">
+                    <input type="button" id="checkCode" class="code" />
+                    <a href="javascript:;" id="resetCode">看不清楚</a>
+                </div>
+                <div style="margin-top: 20px;">
+                    <button class="defaultBtn" id="cxBtn">查&nbsp;&nbsp;询</button>
+                </div>
+            </div>
+            <!-- 提示信息 -->
+            <div id="hint-msg">
+                <span style="font-weight:bold; margin-bottom:20px;">温馨提示：</span>
+                <span style="line-height:30px;color: red;font-weight: bold;">请在登录后查询！</span>
+                <p style="line-height:30px">可查询成绩为张掖市县区（即：甘州区、临泽县、高台县、山丹县、民乐县、肃南裕固族自治县）所有中考科目。考生还可以通过“甘快办”APP查询成绩。</p>
+                <p class="img-box"><img class="appewm" src="https://zwfw.gansu.gov.cn/cms_files/filemanager/892888968/picture/20222/72ed6033b864440e9490755e22ef0283.png" alt=""></p>
+                <p style="line-height:30px">注：为保护考生隐私，每个账号每日仅限5次查询，查询成绩后请截图或拍照保存！</p>
+            </div>
+            <div style="clear:both"></div>
+        </div>
+        <!-- 查询结果 -->
+        <div class="xygsList xzxk">
+            <!-- 查询结果 -->
+            <table>
+                <tbody>
+                    <tr>
+                        <td width="20%" class="colLeft">姓名</td>
+                        <td id="txt1" width="30%">张三2</td>
+                        <td width="20%" class="colLeft">准考证号</td>
+                        <td id="txt1">zkzhm1234567891</td>
+                    </tr>
+                    <tr>
+                        <td width="20%" class="colLeft">语文</td>
+                        <td id="txt1" width="30%">101</td>
+                        <td width="20%" class="colLeft">数学</td>
+                        <td id="txt1">99</td>
+                    </tr>
+                    <tr>
+                        <td width="20%" class="colLeft">英语</td>
+                        <td id="txt1" width="30%">101</td>
+                        <td width="20%" class="colLeft">理科综合</td>
+                        <td id="txt1">99</td>
+                    </tr>
+                    <tr>
+                        <td width="20%" class="colLeft">物理</td>
+                        <td id="txt1" width="30%">101</td>
+                        <td width="20%" class="colLeft">化学</td>
+                        <td id="txt1">99</td>
+                    </tr>
+                    <tr>
+                        <td width="20%" class="colLeft">文科综合</td>
+                        <td id="txt1" width="30%">101</td>
+                        <td width="20%" class="colLeft">道德与法治</td>
+                        <td id="txt1">99</td>
+                    </tr>
+                    <tr>
+                        <td width="20%" class="colLeft">历史</td>
+                        <td id="txt1" width="30%">101</td>
+                        <td width="20%" class="colLeft">地理</td>
+                        <td id="txt1">99</td>
+                    </tr>
+                    <tr>
+                        <td width="20%" class="colLeft">生物</td>
+                        <td id="txt1" width="30%">101</td>
+                        <td width="20%" class="colLeft">体育</td>
+                        <td id="txt1">99</td>
+                    </tr>
+                    <tr>
+                        <td width="20%" class="colLeft">总分</td>
+                        <td id="txt1" colspan="3">1495</td>
+                    </tr>
+                </tbody>
+            </table>
+            <!-- 查询无结果 -->
+            <div class="noneImg">
+                <img src="./images/doesNotExist.png" alt="">
+                <p>暂无数据</p>
+            </div>
+        </div>
+        <!-- 分页 -->
+        <div class="paginationWkPage" id="page">
+
+        </div>
+
+    </div>
+
+
+    <script>
+        var fwyy = new fwyy('xmlC');
+        fwyy.init({
+            input: ['#v1', "#v2","#v3"], // 输入框
+            inputVCode: '#VCode', // 验证码输入
+            code: '#checkCode', // 验证码
+            resetCode: '#resetCode', // 重置验证码
+            InquireBtn: '#cxBtn', // 查询按钮
+            returnBtn: '#returnInquire', // 返回查询按钮
+            cxbox: '.xygsSearch-box', // 查询表单容器
+            cxjg: '.xygsList' // 查询结果容器
+        });
+    </script>
+
+    <!--通用底部-->
+    <script
+        src="https://zwfw.gansu.gov.cn/cms_files/filemanager/1053608934/script/20226/86771dd20dae4b46aa3f5e724445d259.js"></script>
+</body>
+
+</html>

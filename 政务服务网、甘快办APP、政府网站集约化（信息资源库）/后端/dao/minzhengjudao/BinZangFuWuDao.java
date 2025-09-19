@@ -1,0 +1,24 @@
+package com.hanweb.yyjr.zhangye.dao.minzhengjudao;
+
+import com.hanweb.common.basedao.BaseJdbcDao;
+import com.hanweb.common.basedao.Query;
+import com.hanweb.yyjr.zhangye.entity.minzhengju.BinZangFuWu;
+import org.springframework.stereotype.Repository;
+
+import java.util.List;
+import java.util.Map;
+
+/**
+ * 殡葬服务 DAO
+ * @author xueyize
+ * @since 2022-03-15
+ */
+@Repository
+public class BinZangFuWuDao extends BaseJdbcDao<Integer, BinZangFuWu> {
+
+    public List<Map<String, Object>> findAllData(){
+        String sql="SELECT * FROM zy_binzangfuwu ";
+        Query query = createQuery(sql);
+        return this.queryForList(query);
+    }
+}
